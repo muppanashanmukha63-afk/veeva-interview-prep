@@ -1,1 +1,17 @@
 
+SELECT 
+    department,
+    COUNT(employee_id) AS staff_count,
+    SUM(salary) AS total_payroll
+FROM 
+    employees
+-- 1. Row-level filter: Check condition BEFORE grouping
+WHERE 
+    status = 'Active' AND country = 'US'
+GROUP BY 
+    department
+-- 2. Group-level filter: Check condition AFTER grouping
+HAVING 
+    SUM(salary) >= 500000 AND COUNT(employee_id) > 5
+ORDER BY 
+    total_payroll DESC;
